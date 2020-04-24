@@ -9,8 +9,8 @@ const svg = d3.select("body").append("svg")
   .attr("height", height);
 
 function colorPicker(value){
-  if (value <= 20) return "#666666";
-  else if (value > 20) return "#FF0033";
+  if (value <= 20) return "#30E7D2";
+  else if (value > 20) return "#F2845C";
 }
 
 svg.selectAll("rect")
@@ -29,6 +29,16 @@ svg.selectAll("rect")
     })
     .attr("fill", function (data) {
       return colorPicker(data);
+    })
+    .on("mouseover", function(data){
+      d3.select(this).style("fill", function() {
+        return d3.rgb(d3.select(this).style("fill")).darker(0.2);
+      });
+    })
+    .on("mouseout", function(data){
+      d3.select(this).style("fill", function() {
+        return colorPicker(data);
+      });
     });
 
 svg.selectAll("text")
